@@ -15,6 +15,30 @@ const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
 
+const parseArgs = require('electron-args')
+const cli = parseArgs(`
+    gpicdiff
+
+    Graphical diff for pics
+
+    Usage
+      $ gpicdiff path1 path2
+
+    Options
+      --help       show help
+      --version    show version
+
+    Examples
+      $ gpicdiff pic1.jpg pic2.jpg
+`, {
+  alias: {
+    h: 'help',
+    v: 'version'
+  },
+  default: {
+  }
+})
+
 function createWindow () {
   /**
    * Initial window options
