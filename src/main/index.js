@@ -49,7 +49,14 @@ function createWindow () {
     width: 1000
   })
 
+  let file1 = cli.input.slice(-2)[0]
+  let file2 = cli.input.slice(-2)[1]
+
   mainWindow.loadURL(winURL)
+  mainWindow.webContents.on('did-finish-load', function () {
+    mainWindow.webContents.send('file1', file1)
+    mainWindow.webContents.send('file2', file2)
+  })
 
   mainWindow.on('closed', () => {
     mainWindow = null
