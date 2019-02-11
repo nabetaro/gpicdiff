@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="alpha-range">
-      <input type="range" v-model="opacity" @change="setOpacity">
+      <input type="range" v-model="opacity" @change="setOpacity" @input="setOpacity">
     </div>
   </div>
 </template>
