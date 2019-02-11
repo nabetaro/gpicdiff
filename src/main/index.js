@@ -38,6 +38,14 @@ const cli = parseArgs(`
   default: {
   }
 })
+const fs = require('fs')
+function readDataURL (path, handler) {
+  fs.readFile(path, (err, data) => {
+    if (err) throw err
+    let url = 'data:;base64,' + data.toString('base64')
+    handler(url)
+  })
+}
 
 function createWindow () {
   /**
@@ -49,8 +57,11 @@ function createWindow () {
     width: 1000
   })
 
-  let file1 = cli.input.slice(-2)[0]
-  let file2 = cli.input.slice(-2)[1]
+  let file1
+  let file2
+
+  readDataURL(cli.input.slice(-2)[0], (data) => { file1 = data })
+  readDataURL(cli.input.slice(-2)[1], (data) => { file2 = data })
 
   mainWindow.loadURL(winURL)
   mainWindow.webContents.on('did-finish-load', function () {
