@@ -59,14 +59,17 @@ function createWindow () {
 
   let file1
   let file2
-
-  readDataURL(cli.input.slice(-2)[0], (data) => { file1 = data })
-  readDataURL(cli.input.slice(-2)[1], (data) => { file2 = data })
+  let filename1 = cli.input.slice(-2)[0]
+  let filename2 = cli.input.slice(-2)[1]
+  readDataURL(filename1, (data) => { file1 = data })
+  readDataURL(filename2, (data) => { file2 = data })
 
   mainWindow.loadURL(winURL)
   mainWindow.webContents.on('did-finish-load', function () {
     mainWindow.webContents.send('file1', file1)
     mainWindow.webContents.send('file2', file2)
+    mainWindow.webContents.send('filename1', filename1)
+    mainWindow.webContents.send('filename2', filename2)
   })
 
   mainWindow.on('closed', () => {

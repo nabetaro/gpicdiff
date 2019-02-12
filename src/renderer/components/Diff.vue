@@ -20,17 +20,12 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    overflow: hidden;
   }
 
   body { font-family: 'Source Sans Pro', sans-serif; }
 
   #wrapper {
-    background:
-      radial-gradient(
-        ellipse at top left,
-        rgba(255, 255, 255, 1) 40%,
-        rgba(229, 229, 229, .9) 100%
-      );
     height: 99vh;
     width: 99vw;
   }
