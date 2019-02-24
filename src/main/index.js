@@ -22,9 +22,11 @@ const cli = parseArgs(`
     Graphical diff for pics
 
     Usage
-      $ gpicdiff path1 path2
+      $ gpicdiff [options] path1 path2
 
     Options
+      --old-label=oldlabel  caption for old file
+      --new-label=newlabel  caption for new file
       --help       show help
       --version    show version
 
@@ -39,12 +41,12 @@ const cli = parseArgs(`
   }
 })
 const fs = require('fs')
-function readDataURL (path, handler) {
-  fs.readFile(path, (err, data) => {
-    if (err) throw err
-    let url = 'data:;base64,' + data.toString('base64')
-    handler(url)
-  })
+const util = require('util')
+const readFileAsync = util.promisify(fs.readFile)
+
+const readFileData = async (path, handler) => {
+  const data = await readFileAsync(path)
+  handler('data:;base64,' + data.toString('base64'))
 }
 
 function createWindow () {
@@ -57,19 +59,17 @@ function createWindow () {
     width: 1000
   })
 
-  let file1
-  let file2
-  let filename1 = cli.input.slice(-2)[0]
-  let filename2 = cli.input.slice(-2)[1]
-  readDataURL(filename1, (data) => { file1 = data })
-  readDataURL(filename2, (data) => { file2 = data })
+  let file1 = { filename: cli.input.slice(-2)[0] }
+  let file2 = { filename: cli.input.slice(-2)[1] }
+  readFileData(file1.filename, (data) => { file1.data = data })
+  readFileData(file2.filename, (data) => { file2.data = data })
+  file1.label = file1.filename
+  file2.label = file2.filename
 
   mainWindow.loadURL(winURL)
   mainWindow.webContents.on('did-finish-load', function () {
     mainWindow.webContents.send('file1', file1)
     mainWindow.webContents.send('file2', file2)
-    mainWindow.webContents.send('filename1', filename1)
-    mainWindow.webContents.send('filename2', filename2)
   })
 
   mainWindow.on('closed', () => {

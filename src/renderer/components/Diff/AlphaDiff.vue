@@ -2,19 +2,19 @@
   <div id="alpha-diff">
     <div id="image-content">
       <div id="file1" class="diff-image" v-bind:style="{opacity:file1_opacity}">
-        <img :src="file1" alt=""/>
+        <img :src="filedata1" alt=""/>
       </div>
       <div id="file2" class="diff-image" v-bind:style="{opacity:file2_opacity}">
-        <img :src="file2" alt=""/>
+        <img :src="filedata2" alt=""/>
       </div>
     </div>
     <div class="alpha-range">
       <input type="range" v-model="opacity" @change="setOpacity" @input="setOpacity">
       <div class="filename1">
-        <input type="text" v-model="filename1" readonly>
+        <input type="text" v-model="filelabel1" readonly>
       </div>
       <div class="filename2">
-        <input type="text" v-model="filename2" readonly>
+        <input type="text" v-model="filelabel2" readonly>
       </div>
     </div>
   </div>
@@ -24,10 +24,10 @@
  export default {
    data () {
      return {
-       file1: '',
-       file2: '',
-       filename1: '',
-       filename2: '',
+       filedata1: '',
+       filedata2: '',
+       filelabel1: '',
+       filelabel2: '',
        opacity: 50,
        file1_opacity: 0.5,
        file2_opacity: 0.5
@@ -35,16 +35,12 @@
    },
    mounted () {
      this.$electron.ipcRenderer.on('file1', (event, data) => {
-       this.file1 = data
+       this.filedata1 = data.data
+       this.filelabel1 = data.label
      })
      this.$electron.ipcRenderer.on('file2', (event, data) => {
-       this.file2 = data
-     })
-     this.$electron.ipcRenderer.on('filename1', (event, data) => {
-       this.filename1 = data
-     })
-     this.$electron.ipcRenderer.on('filename2', (event, data) => {
-       this.filename2 = data
+       this.filedata2 = data.data
+       this.filelabel2 = data.label
      })
    },
    methods: {
