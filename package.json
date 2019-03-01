@@ -115,10 +115,11 @@
     "webpack-hot-middleware": "^2.22.2",
     "webpack-merge": "^4.1.3"
   },
-  "license": null,
+  "homepage": "https://github.com/nabetaro/gpicdiff",
+  "license": "MIT",
   "main": "./dist/electron/main.js",
   "scripts": {
-    "build": "node .electron-vue/build.js && electron-builder -mwl",
+    "build": "node .electron-vue/build.js && electron-builder",
     "build:clean": "cross-env BUILD_TARGET=clean node .electron-vue/build.js",
     "build:dir": "node .electron-vue/build.js && electron-builder --dir",
     "build:linux": "node .electron-vue/build.js && electron-builder --linux --x64",
