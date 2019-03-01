@@ -10,6 +10,7 @@ matrix:
   - os: linux
     env: CC=clang CXX=clang++ npm_config_clang=1
     compiler: clang
+  - os: windows
 cache:
   directories:
   - node_modules
@@ -29,7 +30,7 @@ before_install:
 install:
 #- export DISPLAY=':99.0'
 #- Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-- nvm install 7
+- nvm install 11
 - curl -o- -L https://yarnpkg.com/install.sh | bash
 - source ~/.bashrc
 - npm install -g xvfb-maybe
