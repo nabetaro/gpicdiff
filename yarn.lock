@@ -98,9 +98,9 @@
     to-fast-properties "^2.0.0"
 
 "@types/node@^8.0.24", "@types/node@^8.0.7":
-  version "8.10.40"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.40.tgz#4314888d5cd537945d73e9ce165c04cc550144a4"
-  integrity sha512-RRSjdwz63kS4u7edIwJUn8NqKLLQ6LyqF/X4+4jp38MBT3Vwetewi2N4dgJEshLbDwNgOJXNYoOwzVZUSSLhkQ==
+  version "8.10.42"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.42.tgz#d3d8e738e13540a09b3f4a714dac1ffbf8939f7d"
+  integrity sha512-8LCqostMfYwQs9by1k21/P4KZp9uFQk3Q528y3qtPKQnCJmKz0Em3YzgeNjTNV1FVrG/7n/6j12d4UKg9zSgDw==
 
 "@vue/component-compiler-utils@^2.5.1":
   version "2.6.0"
@@ -4112,9 +4112,9 @@ eslint-scope@^3.7.1:
     estraverse "^4.1.1"
 
 eslint-scope@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-scope/-/eslint-scope-4.0.0.tgz#50bf3071e9338bcdc43331794a0cb533f0136172"
-  integrity sha512-1G6UTDi7Jc1ELFwnR58HV4fK9OQK4S6N985f166xqXxpjU6plxFISJa2Ba9KCQuFa8RCnj/lSFJbHo7UFDBnUA==
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/eslint-scope/-/eslint-scope-4.0.2.tgz#5f10cd6cabb1965bf479fa65745673439e21cb0e"
+  integrity sha512-5q1+B/ogmHl8+paxtOKx38Z8LtWkVGuNt3+GQNErqwLl6ViNp/gdJGMCjZNxZ8j/VYjDNZ2Fo+eQc1TAVPIzbg==
   dependencies:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
@@ -7837,9 +7837,9 @@ p-limit@^1.0.0, p-limit@^1.1.0:
     p-try "^1.0.0"
 
 p-limit@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/p-limit/-/p-limit-2.1.0.tgz#1d5a0d20fb12707c758a655f6bbc4386b5930d68"
-  integrity sha512-NhURkNcrVB+8hNfLuysU8enY5xn2KXphsHBaC2YmRNTZRc7RWusw6apSpdEj3jo4CMb6W9nrF6tTnsJsJeyu6g==
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/p-limit/-/p-limit-2.2.0.tgz#417c9941e6027a9abcba5092dd2904e255b5fbc2"
+  integrity sha512-pZbTJpoUsCzV48Mc9Nh51VbwO0X9cuPFE8gYwx9BTCt9SF8/b7Zljd2fVgOxhIF/HDTKgpVzs+GPhyKfjLLFRQ==
   dependencies:
     p-try "^2.0.0"
 
