@@ -7,6 +7,6 @@ describe('Diff.vue', () => {
       el: document.createElement('div'),
       render: h => h(Diff)
     }).$mount()
-   vm
+    expect(vm.$el.querySelector('#wrapper')).to.null
   })
 })
