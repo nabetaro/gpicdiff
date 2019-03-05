@@ -40,3 +40,10 @@ script:
 branches:
   only:
   - master
+deploy:
+  provider: releases
+  api_key: $GH_TOKEN
+  file_glob: true
+  file: 'build/gpicdiff*'
+  skip_cleanup: true
+  draft: true
