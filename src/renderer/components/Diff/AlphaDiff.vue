@@ -2,19 +2,19 @@
   <div id="alpha-diff">
     <div id="image-content">
       <div id="file1" class="diff-image" v-bind:style="{opacity:file1_opacity}">
-        <img :src="filedata1" alt=""/>
+        <img :src="file1.data" alt=""/>
       </div>
       <div id="file2" class="diff-image" v-bind:style="{opacity:file2_opacity}">
-        <img :src="filedata2" alt=""/>
+        <img :src="file2.data" alt=""/>
       </div>
     </div>
     <div class="alpha-range">
-      <input type="range" v-model="opacity" @change="setOpacity" @input="setOpacity">
+      <input type="range" v-model="opacity">
       <div class="filename1">
-        <input type="text" v-model="filelabel1" readonly>
+        <input type="text" v-model="file1.label" readonly>
       </div>
       <div class="filename2">
-        <input type="text" v-model="filelabel2" readonly>
+        <input type="text" v-model="file2.label" readonly>
       </div>
     </div>
   </div>
@@ -24,29 +24,25 @@
  export default {
    data () {
      return {
-       filedata1: '',
-       filedata2: '',
-       filelabel1: '',
-       filelabel2: '',
-       opacity: 50,
-       file1_opacity: 0.5,
-       file2_opacity: 0.5
+       file1: { 'data': '', 'label': '' },
+       file2: { 'data': '', 'label': '' },
+       opacity: 50
      }
    },
    mounted () {
      this.$electron.ipcRenderer.on('file1', (event, data) => {
-       this.filedata1 = data.data
-       this.filelabel1 = data.label
+       this.file1 = data
      })
      this.$electron.ipcRenderer.on('file2', (event, data) => {
-       this.filedata2 = data.data
-       this.filelabel2 = data.label
+       this.file2 = data
      })
    },
-   methods: {
-     setOpacity (e) {
-       this.file1_opacity = 1 - (this.opacity / 100)
-       this.file2_opacity = this.opacity / 100
+   computed: {
+     file1_opacity: function () {
+       return 1 - (this.opacity / 100)
+     },
+     file2_opacity: function () {
+       return this.opacity / 100
      }
    }
  }
@@ -63,6 +59,7 @@
      width: 100vw;
      height: calc(100vh - 6em);
      background-color: #bbb;
+     background-image: url('~@/assets/image/bg-image.png');
    }
    .diff-image{
      position: absolute;
@@ -70,7 +67,6 @@
    }
    .alpha-range {
      position: absolute;
-     background-image: url("/assets/images/bg-image.png");
      bottom: 0;
      left: 0;
      padding: 0 5vw;
