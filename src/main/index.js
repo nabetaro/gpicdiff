@@ -56,7 +56,10 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     height: 563,
     useContentSize: true,
-    width: 1000
+    width: 1000,
+    webPreferences: {
+      nodeIntegration: true
+    }
   })
 
   let file1 = { filename: cli.input.slice(-2)[0] }
