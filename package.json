@@ -1,6 +1,6 @@
 {
   "name": "gpicdiff",
-  "description": "Graphical Image Diff",
+  "description": "Graphical Image Diff: can be integrated into SCM",
   "version": "0.0.1",
   "author": "KURASAWA Nozomu <nabetaro@caldron.jp>",
   "build": {
@@ -36,11 +36,15 @@
       "icon": "build/icons/icon.ico"
     },
     "linux": {
+      "synopsis": "Graphical Image Diff",
       "target": [
         "deb",
         "rpm"
       ],
       "icon": "build/icons"
+    },
+    "deb": {
+      "packageCategory": "utils"
     }
   },
   "dependencies": {
