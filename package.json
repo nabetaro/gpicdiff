@@ -1,7 +1,7 @@
 {
   "name": "gpicdiff",
   "description": "Graphical Image Diff: can be integrated into SCM",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "KURASAWA Nozomu <nabetaro@caldron.jp>",
   "build": {
     "productName": "gpicdiff",
