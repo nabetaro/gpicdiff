@@ -46,7 +46,6 @@ before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
 branches:
   only:
-  - master
   - "/^v?[0-9\\.]+/"
 deploy:
   provider: releases
