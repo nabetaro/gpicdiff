@@ -47,6 +47,7 @@ before_cache:
 branches:
   only:
   - master
+  - "/^v?[0-9\\.]+/"
 deploy:
   provider: releases
   api_key: $GH_TOKEN
