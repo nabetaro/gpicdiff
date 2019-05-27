@@ -25,8 +25,8 @@ const cli = parseArgs(`
       $ gpicdiff [options] path1 path2
 
     Options
-      --old-label=oldlabel  caption for old file
-      --new-label=newlabel  caption for new file
+      --label-path1=label  caption for path1
+      --label-path2=label  caption for path2
       --help       show help
       --version    show version
 
@@ -66,8 +66,8 @@ function createWindow () {
   let file2 = { filename: cli.input.slice(-2)[1] }
   readFileData(file1.filename, (data) => { file1.data = data })
   readFileData(file2.filename, (data) => { file2.data = data })
-  file1.label = file1.filename
-  file2.label = file2.filename
+  file1.label = cli.flags.labelPath1 || file1.filename
+  file2.label = cli.flags.labelPath2 || file2.filename
 
   mainWindow.loadURL(winURL)
   mainWindow.webContents.on('did-finish-load', function () {
