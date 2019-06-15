@@ -1,11 +1,12 @@
 {
   "name": "gpicdiff",
   "description": "Graphical Image Diff: can be integrated into SCM",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "KURASAWA Nozomu <nabetaro@caldron.jp>",
   "build": {
     "productName": "gpicdiff",
     "appId": "jp.caldron.gpicdiff",
+    "afterPack": "CompensateFiles.js",
     "directories": {
       "output": "build"
     },
@@ -79,6 +80,7 @@
     "electron-builder": "^20.39.0",
     "electron-debug": "^1.5.0",
     "electron-devtools-installer": "^2.2.4",
+    "electron-installer-debian": "^2.0.0",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-friendly-formatter": "^4.0.1",
@@ -126,7 +128,7 @@
     "build": "node .electron-vue/build.js && electron-builder",
     "build:clean": "cross-env BUILD_TARGET=clean node .electron-vue/build.js",
     "build:dir": "node .electron-vue/build.js && electron-builder --dir",
-    "build:linux": "node .electron-vue/build.js && electron-builder --linux --x64",
+    "build:deb": "yarn build:dir && electron-installer-debian --src build/linux-unpacked/ --dest build/ --arch amd64",
     "build:mac": "node .electron-vue/build.js && electron-builder --mac --x64",
     "build:web": "cross-env BUILD_TARGET=web node .electron-vue/build.js",
     "build:win": "node .electron-vue/build.js && electron-builder --win --x64",

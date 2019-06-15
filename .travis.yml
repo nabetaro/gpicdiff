@@ -23,6 +23,7 @@ addons:
     - graphicsmagick
     - xz-utils
     - rpm
+    - fakeroot
     #- xvfb
 before_install:
 # - mkdir -p /tmp/git-lfs && curl -L https://github.com/github/git-lfs/releases/download/v1.2.1/git-lfs-$([
@@ -39,7 +40,7 @@ install:
 script:
 #- xvfb-maybe node_modules/.bin/karma start test/unit/karma.conf.js
 #- yarn run pack && xvfb-maybe node_modules/.bin/mocha test/e2e
-- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then yarn run build:linux; fi
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then yarn run build:deb; fi
 - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then yarn run build:win; fi
 - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then yarn run build:mac; fi
 before_cache:
