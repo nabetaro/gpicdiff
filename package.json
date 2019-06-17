@@ -13,6 +13,9 @@
     "files": [
       "dist/electron/**/*"
     ],
+    "extraFiles": [
+      "contrib/git-gpicdiff.sh"
+    ],
     "dmg": {
       "contents": [
         {
