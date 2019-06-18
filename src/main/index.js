@@ -69,11 +69,14 @@ function createWindow () {
   readFileData(file2.filename, (data) => { file2.data = data })
   file1.label = cli.flags.labelPath1 || file1.filename
   file2.label = cli.flags.labelPath2 || file2.filename
+  let fileSet = {
+    file1: file1,
+    file2: file2
+  }
 
   mainWindow.loadURL(winURL)
   mainWindow.webContents.on('did-finish-load', function () {
-    mainWindow.webContents.send('file1', file1)
-    mainWindow.webContents.send('file2', file2)
+    mainWindow.webContents.send('fileSet', fileSet)
   })
 
   mainWindow.on('closed', () => {

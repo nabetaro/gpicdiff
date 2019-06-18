@@ -30,11 +30,9 @@
      }
    },
    mounted () {
-     this.$electron.ipcRenderer.on('file1', (event, data) => {
-       this.file1 = data
-     })
-     this.$electron.ipcRenderer.on('file2', (event, data) => {
-       this.file2 = data
+     this.$electron.ipcRenderer.on('fileSet', (event, data) => {
+       this.file1 = data.file1
+       this.file2 = data.file2
      })
    },
    computed: {
