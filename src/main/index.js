@@ -45,6 +45,7 @@ const util = require('util')
 const readFileAsync = util.promisify(fs.readFile)
 
 const readFileData = async (path, handler) => {
+  if (path === undefined) { return '' }
   const data = await readFileAsync(path)
   handler('data:;base64,' + data.toString('base64'))
 }
