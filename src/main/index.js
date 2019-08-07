@@ -76,6 +76,7 @@ function createWindow () {
 
   mainWindow.loadURL(winURL)
   mainWindow.webContents.on('did-finish-load', function () {
+    mainWindow.webContents.send('clear')
     mainWindow.webContents.send('fileSet', fileSet)
   })
 
@@ -84,7 +85,20 @@ function createWindow () {
   })
 }
 
-app.on('ready', createWindow)
+const appLock = app.requestSingleInstanceLock()
+
+if (!appLock) {
+
+} else {
+  app.on('second-instance', (event, commandLine, workingDirectory) => {
+    // Someone tried to run a second instance, we should focus our window.
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore()
+      mainWindow.focus()
+    }
+  })
+  app.on('ready', createWindow)
+}
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

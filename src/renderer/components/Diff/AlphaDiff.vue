@@ -21,23 +21,31 @@
 </template>
 
 <script>
+ import {mapState} from 'vuex'
  export default {
    data () {
      return {
-       file1: { 'data': '', 'label': '' },
-       file2: { 'data': '', 'label': '' },
        opacity: 50
      }
    },
-   mounted () {
-     this.$electron.ipcRenderer.on('fileSet', (event, data) => {
-       this.file1 = data.file1
-       this.file2 = data.file2
-     })
-   },
    computed: {
+     ...mapState('FileSets', ['fileSets']),
+     file1: function () {
+       if (this.fileSets[0] !== undefined) {
+         return this.fileSets[0].file1
+       } else {
+         return { 'data': '', 'label': '' }
+       }
+     },
      file1_opacity: function () {
        return 1 - (this.opacity / 100)
+     },
+     file2: function () {
+       if (this.fileSets[0] !== undefined) {
+         return this.fileSets[0].file2
+       } else {
+         return { 'data': '', 'label': '' }
+       }
      },
      file2_opacity: function () {
        return this.opacity / 100

@@ -6,10 +6,22 @@
 
 <script>
  import AlphaDiff from './Diff/AlphaDiff'
+ import {mapState, mapActions} from 'vuex'
 
  export default {
    name: 'diff',
-   components: { AlphaDiff }
+   components: { AlphaDiff },
+   mounted () {
+     this.$electron.ipcRenderer.on('fileSet', (event, data) => {
+       this.add_diff_fileset({fileset: data})
+     })
+   },
+   conmputed: {
+     ...mapState('FileSets', ['fileSets'])
+   },
+   methods: {
+     ...mapActions('FileSets', ['add_diff_fileset'])
+   }
  }
 </script>
 
