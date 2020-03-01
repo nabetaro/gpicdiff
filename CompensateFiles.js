@@ -10,9 +10,9 @@ exports.default = async function(context) {
   switch (PLATFORM) {
   case 'linux':
     try {
-      fs.writeFileSync("build/linux-unpacked/version", config.version)
+      fs.writeFileSync("dist_electron/linux-unpacked/version", config.version)
       console.log('version file created.')
-      fs.copyFileSync("LICENSE", "build/linux-unpacked/LICENSE")
+      fs.copyFileSync("LICENSE", "dist_electron/linux-unpacked/LICENSE")
       console.log('LICENSE file copied.')
     }catch(e){
       console.log(e)

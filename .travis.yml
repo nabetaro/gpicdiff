@@ -32,7 +32,7 @@ before_install:
 install:
 #- export DISPLAY=':99.0'
 #- Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-- nvm install 10
+- nvm install 12
 - curl -o- -L https://yarnpkg.com/install.sh | bash
 - source ~/.bashrc
 - npm install -g xvfb-maybe
@@ -40,9 +40,9 @@ install:
 script:
 #- xvfb-maybe node_modules/.bin/karma start test/unit/karma.conf.js
 #- yarn run pack && xvfb-maybe node_modules/.bin/mocha test/e2e
-- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then yarn run build:deb; fi
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then yarn run build:win; fi
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then yarn run build:mac; fi
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then yarn run electron:build:deb; fi
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then yarn run electron:build:win; fi
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then yarn run electron:build:mac; fi
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
 branches:
@@ -52,7 +52,7 @@ deploy:
   provider: releases
   api_key: $GH_TOKEN
   file_glob: true
-  file: build/gpicdiff*
+  file: dist_electron/gpicdiff*
   skip_cleanup: true
   on:
     repo: nabetaro/gpicdiff
