@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=gpicdiff
+Exec=gpicdiff %F
+Icon=gpicdiff
+Type=Application
+Categories=Graphics;Viewer;
+Comment=Image diff viewer
+MimeType=image/png;image/jpeg;gif;image/bmp;image/webp;
