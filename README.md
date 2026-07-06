@@ -14,10 +14,10 @@ This software is released under the MIT License, see LICENSE file.
 yarn
 
 # serve with hot reload at localhost:9080
-yarn run dev
+yarn tauri dev
 
 # build electron application for production
-yarn run build
+yarn tauri build
 
 # run unit & end-to-end tests
 yarn test
@@ -28,6 +28,10 @@ yarn run lint
 
 ```
 
----
+# Tauri + Vue 3
 
-This project was generated with [electron-vue](https://github.com/SimulatedGREG/electron-vue)@[8fae476](https://github.com/SimulatedGREG/electron-vue/tree/8fae4763e9d225d3691b627e83b9e09b56f6c935) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).
+This template should help get you started developing with Tauri + Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+
+## Recommended IDE Setup
+
+- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)

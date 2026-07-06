@@ -1,0 +1,57 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "gpicdiff",
+  "version": "0.1.0",
+  "identifier": "jp.caldron.gpicdiff",
+  "build": {
+    "beforeDevCommand": "yarn dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "yarn build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "devtools": true,
+        "title": "gpicdiff",
+        "width": 1200,
+        "height": 800,
+        "resizable": true
+      }
+    ],
+    "security": {
+      "csp": null,
+      "assetProtocol": {
+        "enable": true,
+        "scope": ["**"]
+      }
+    },
+    "withGlobalTauri": true
+  },
+  "bundle": {
+    "active": true,
+    "longDescription": "gpicdiff is a graphical image diff viewer.\nIt compares the differences between the two images passed\nas arguments.\nIt can be integrated into SCM tools such as Git.",
+    "targets": ["deb", "rpm"],
+    "icon": [
+      "icons/icon_32.png",
+      "icons/icon_128.png",
+      "icons/icon_256.png",
+      "icons/icon_512.png"
+    ],
+    "linux": {
+      "deb": {
+        "depends": ["libc6"],
+        "section": "graphics",
+        "desktopTemplate": "../contrib/gpicdiff.desktop",
+        "files": {
+          "/usr/share/doc/gpicdiff/changelog.gz": "../debian/changelog.gz",
+          "/usr/share/doc/gpicdiff/copyright": "../debian/copyright",
+          "/usr/share/doc/gpicdiff/README.md": "../README.md"
+        }
+      },
+      "rpm": {
+        "desktopTemplate": "../contrib/gpicdiff.desktop"
+      }
+    }
+  }
+}
