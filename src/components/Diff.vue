@@ -3,24 +3,36 @@
 
 <template>
   <div id="wrapper">
+    <div id="tabs" v-if="fileSets.length > 1">
+      <button
+        v-for="(fs, i) in fileSets"
+        :key="i"
+        :class="{ active: i === currentIndex }"
+        @click="switchTo(i)"
+      >
+        {{ fs.title ?? `比較 ${i + 1}` }}
+      </button>
+    </div>
     <alpha-diff></alpha-diff>
   </div>
 </template>
 
 <script setup>
 import { onMounted, onUnmounted } from 'vue'
-import { listen } from '@tauri-apps/api/event'
-import { emit } from '@tauri-apps/api/event'
+import { listen, emit } from '@tauri-apps/api/event'
+import { storeToRefs } from 'pinia'
 import AlphaDiff from './Diff/AlphaDiff.vue'
 import { useFileSetsStore } from '../store/fileSets'
 
 const fileSetsStore = useFileSetsStore()
+const { fileSets, currentIndex } = storeToRefs(fileSetsStore)
+const { addDiffFileset, switchTo } = fileSetsStore
 
 let unlisten = null
 
 onMounted(async () => {
   unlisten = await listen('fileSet', (event) => {
-    fileSetsStore.addDiffFileset(event.payload)
+    addDiffFileset(event.payload)
   })
   // リスナー登録完了後にRust側へ通知
   await emit('frontend-ready')
@@ -106,5 +118,25 @@ main > div { flex-basis: 50%; }
 .doc button.alt {
   color: #42b983;
   background-color: transparent;
+}
+
+#tabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: #1a1a2e;
+}
+
+#tabs button {
+  padding: 4px 12px;
+  border: none;
+  border-radius: 4px 4px 0 0;
+  cursor: pointer;
+  background: #2e3a6e;
+  color: #fff;
+}
+
+#tabs button.active {
+  background: #4a90d9;
 }
 </style>

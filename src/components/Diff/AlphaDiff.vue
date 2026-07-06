@@ -30,16 +30,16 @@ import { convertFileSrc } from '@tauri-apps/api/core'
 import { useFileSetsStore } from '../../store/fileSets'
 
 const fileSetsStore = useFileSetsStore()
-const { fileSets } = storeToRefs(fileSetsStore)
+const { currentFileSet } = storeToRefs(fileSetsStore)
 
 const opacity = ref(50)
 
 const file1 = computed(() => {
-  return fileSets.value[0]?.file1 ?? { data: '', label: '' }
+  return currentFileSet.value?.file1 ?? { data: '', label: '' }
 })
 
 const file2 = computed(() => {
-  return fileSets.value[0]?.file2 ?? { data: '', label: '' }
+  return currentFileSet.value?.file2 ?? { data: '', label: '' }
 })
 
 const file1Src = computed(() => file1.value.data ? convertFileSrc(file1.value.data) : '')
@@ -75,7 +75,7 @@ const file2Opacity = computed(() => opacity.value / 100)
     left: 0;
     padding: 0 5vw;
     width: 100vw;
-    height: 5em;
+    height: 6.5em;
 
     input[type=range] {
       position: relative;
