@@ -1,22 +1,140 @@
-<svg width="64" height="64" viewBox="140 140 400 400" role="img" xmlns="http://www.w3.org/2000/svg">
-  <title>gpicdiff アイコン</title>
-  <desc>2枚の画像を重ね合わせて比較するツールのアイコン。</desc>
-
-  <rect x="140" y="140" width="400" height="400" rx="72" fill="#cccccc" stroke="#888888" stroke-width="8"/>
-
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="514.08002"
+   height="514.08002"
+   viewBox="140 140 408.00001 408.00001"
+   role="img"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="gpicdiff_icon.svg"
+   inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs5" />
+  <sodipodi:namedview
+     id="namedview5"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1"
+     inkscape:cx="33"
+     inkscape:cy="32.5"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg5" />
+  <title
+     id="title1">gpicdiff アイコン</title>
+  <desc
+     id="desc1">2枚の画像を重ね合わせて比較するツールのアイコン。</desc>
+  <rect
+     x="144"
+     y="144"
+     width="400"
+     height="400"
+     rx="72"
+     fill="#cccccc"
+     stroke="#888888"
+     stroke-width="8"
+     id="rect1" />
   <!-- 奥の画像フレーム（青・暗め・高彩度） -->
-  <rect x="175" y="195" width="260" height="220" rx="14" fill="#002288" stroke="#0055ff" stroke-width="3"/>
-  <circle cx="245" cy="268" r="32" fill="#0055ff" opacity="0.9"/>
-  <polygon points="175,340 235,280 280,315 320,275 435,340" fill="#0044dd" opacity="0.95"/>
-
+  <rect
+     x="179"
+     y="199"
+     width="260"
+     height="220"
+     rx="14"
+     fill="#002288"
+     stroke="#0055ff"
+     stroke-width="3"
+     id="rect2" />
+  <circle
+     cx="249"
+     cy="272"
+     r="32"
+     fill="#0055ff"
+     opacity="0.9"
+     id="circle2" />
+  <polygon
+     points="435,340 175,340 235,280 280,315 320,275 "
+     fill="#0044dd"
+     opacity="0.95"
+     id="polygon2"
+     transform="translate(4,4)" />
   <!-- 手前の画像フレーム（赤・暗め・高彩度・透過） -->
-  <g opacity="0.55">
-    <rect x="245" y="265" width="260" height="220" rx="14" fill="#440000" stroke="#ff0000" stroke-width="3"/>
-    <circle cx="375" cy="338" r="32" fill="#ff0000" opacity="0.9"/>
-    <polygon points="245,410 315,355 355,382 400,348 505,410" fill="#cc0000" opacity="0.95"/>
+  <g
+     opacity="0.55"
+     id="g3"
+     transform="translate(4,4)">
+    <rect
+       x="245"
+       y="265"
+       width="260"
+       height="220"
+       rx="14"
+       fill="#440000"
+       stroke="#ff0000"
+       stroke-width="3"
+       id="rect3" />
+    <circle
+       cx="375"
+       cy="338"
+       r="32"
+       fill="#ff0000"
+       opacity="0.9"
+       id="circle3" />
+    <polygon
+       points="505,410 245,410 315,355 355,382 400,348 "
+       fill="#cc0000"
+       opacity="0.95"
+       id="polygon3" />
   </g>
-
-  <rect x="245" y="265" width="190" height="150" rx="4" fill="#ffffff" opacity="0.04"/>
-  <line x1="245" y1="265" x2="435" y2="265" stroke="#ffffff" stroke-width="1" opacity="0.2"/>
-  <line x1="245" y1="265" x2="245" y2="415" stroke="#ffffff" stroke-width="1" opacity="0.2"/>
+  <rect
+     x="249"
+     y="269"
+     width="190"
+     height="150"
+     rx="4"
+     fill="#ffffff"
+     opacity="0.04"
+     id="rect4" />
+  <line
+     x1="249"
+     y1="269"
+     x2="439"
+     y2="269"
+     stroke="#ffffff"
+     stroke-width="1"
+     opacity="0.2"
+     id="line4" />
+  <line
+     x1="249"
+     y1="269"
+     x2="249"
+     y2="419"
+     stroke="#ffffff"
+     stroke-width="1"
+     opacity="0.2"
+     id="line5" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>gpicdiff アイコン</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
 </svg>
