@@ -9,45 +9,13 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  # stage 1: create Linux release
-  create-release:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-
-      - name: install Rust stable
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: install dependencies (ubuntu)
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf xdg-utils
-
-      - name: install frontend dependencies
-        run: yarn install
-
-      - uses: tauri-apps/tauri-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tagName: app-v__VERSION__
-          releaseName: '__VERSION__'
-          releaseBody: 'See the assets to download this version and install.'
-          releaseDraft: true
-          prerelease: false
-
-  # stage 2: Windows, macOS
-  build-and-upload:
-    needs: create-release
+  build:
     strategy:
       fail-fast: false
       matrix:
         include:
+          - platform: 'ubuntu-22.04'
+            args: ''
           - platform: 'windows-latest'
             args: ''
           - platform: 'macos-26'
@@ -65,46 +33,25 @@ jobs:
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
         with:
+          # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
           targets: ${{ matrix.platform == 'macos-26' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
 
-      - name: install frontend dependencies
-        run: yarn install
-
-      # Windows
-      - name: build (windows)
-        if: matrix.platform == 'windows-latest'
-        run: yarn tauri build
-
-      - name: list bundle files (windows)
-        if: matrix.platform == 'windows-latest'
+      - name: install dependencies (ubuntu only)
+        if: matrix.platform == 'ubuntu-22.04' # This must match the platform value defined above.
         run: |
-          Get-ChildItem -Recurse src-tauri/target/release/bundle/
-        shell: pwsh
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf xdg-utils
 
-      - name: upload to release (windows)
-        if: matrix.platform == 'windows-latest'
-        uses: softprops/action-gh-release@v2
-        with:
-          draft: true
-          tag_name: app-${{ github.ref_name }}
-          files: |
-            ${{ github.workspace }}/src-tauri/target/release/bundle/msi/*.msi
-            ${{ github.workspace }}/src-tauri/target/release/bundle/nsis/*-setup.exe
+      - name: install frontend dependencies
+        run: yarn install # change this to npm, pnpm or bun depending on which one you use.
+
+      - uses: tauri-apps/tauri-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # macOS
-      - name: build (macos)
-        if: matrix.platform == 'macos-26'
-        run: yarn tauri build --target universal-apple-darwin
-
-      - name: upload to release (macos)
-        if: matrix.platform == 'macos-26'
-        uses: softprops/action-gh-release@v2
         with:
-          draft: true
-          tag_name: app-${{ github.ref_name }}
-          files: |
-            ${{ github.workspace }}/src-tauri/target/universal-apple-darwin/release/bundle/dmg/*.dmg
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
+          releaseName: '__VERSION__'
+          releaseBody: 'See the assets to download this version and install.'
+          releaseDraft: true
+          prerelease: false
+          args: ${{ matrix.args }}
