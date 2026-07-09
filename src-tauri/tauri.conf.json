@@ -45,13 +45,17 @@
         "section": "graphics",
         "desktopTemplate": "../contrib/gpicdiff.desktop",
         "files": {
+          "/usr/bin/git-gpicdiff.sh": "../contrib/git-gpicdiff.sh",
           "/usr/share/doc/gpicdiff/changelog.gz": "../debian/changelog.gz",
           "/usr/share/doc/gpicdiff/copyright": "../debian/copyright",
           "/usr/share/doc/gpicdiff/README.md": "../README.md"
         }
       },
       "rpm": {
-        "desktopTemplate": "../contrib/gpicdiff.desktop"
+        "desktopTemplate": "../contrib/gpicdiff.desktop",
+        "files": {
+          "/usr/bin/git-gpicdiff.sh": "../contrib/git-gpicdiff.sh"
+        }
       }
     }
   }
