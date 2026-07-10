@@ -5,6 +5,7 @@ use clap::Parser;
 use tauri::Emitter;
 use tauri::Listener;
 use tauri::Manager;
+use std::path::PathBuf;
 
 #[derive(Parser, Debug, Clone, Default)]
 #[command(name = "gpicdiff", about = "Image diff viewer", ignore_errors = true)]
@@ -37,19 +38,49 @@ struct FileInfo {
     label: String,
 }
 
+fn copy_to_temp(src: &str) -> Result<String, std::io::Error> {
+    let src_path = PathBuf::from(src);
+    let ext = src_path.extension()
+        .and_then(|e| e.to_str())
+        .unwrap_or("png");
+
+    let tmp_dir = std::env::temp_dir().join("gpicdiff");
+    std::fs::create_dir_all(&tmp_dir)?;
+
+    // generate unique filepath
+    let uuid = uuid::Uuid::new_v4().to_string();
+    let tmp_path = tmp_dir.join(format!("{}.{}", uuid, ext));
+
+    std::fs::copy(src, &tmp_path)?;
+    Ok(tmp_path.to_string_lossy().to_string())
+}
+
+#[tauri::command]
+fn remove_temp_files(paths: Vec<String>) {
+    for path in paths {
+        if path.contains("gpicdiff") {
+            let _ = std::fs::remove_file(&path);
+        }
+    }
+}
+
 fn build_payload(args: &Args) -> Option<FileSetPayload> {
     if let (Some(file1), Some(file2)) = (args.file1.clone(), args.file2.clone()) {
         let label1 = args.label1.clone().unwrap_or(file1.clone());
         let label2 = args.label2.clone().unwrap_or(file2.clone());
         let title = format!("{} <=> {}", label1, label2);
 
+        // copy tmp file
+        let tmp1 = copy_to_temp(&file1).unwrap_or(file1);
+        let tmp2 = copy_to_temp(&file2).unwrap_or(file2);
+
         Some(FileSetPayload {
             file1: FileInfo {
-                data: file1.clone(),
+                data: tmp1,
                 label: label1,
             },
             file2: FileInfo {
-                data: file2.clone(),
+                data: tmp2,
                 label: label2,
             },
             title,
@@ -80,6 +111,8 @@ fn main() {
         )
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_fs::init())
+        .plugin(tauri_plugin_process::init())
+        .invoke_handler(tauri::generate_handler![remove_temp_files])
         .setup(move |app| {
             if let Some(payload) = build_payload(&args) {
                 let app_handle = app.handle().clone();

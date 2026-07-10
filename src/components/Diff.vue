@@ -3,15 +3,16 @@
 
 <template>
   <div id="wrapper">
-    <div id="tabs" v-if="fileSets.length > 1">
-      <button
+    <div id="tabs" v-if="fileSets.length > 0">
+      <span class="tab"
         v-for="(fs, i) in fileSets"
         :key="i"
         :class="{ active: i === currentIndex }"
         @click="switchTo(i)"
       >
-        {{ fs.title ?? `比較 ${i + 1}` }}
-      </button>
+        {{ fs.title ?? `diff ${i + 1}` }}
+        <button class="close-btn" @click.stop="removeFileset(i)">✕</button>
+      </span>
     </div>
     <alpha-diff></alpha-diff>
   </div>
@@ -21,12 +22,13 @@
 import { onMounted, onUnmounted } from 'vue'
 import { listen, emit } from '@tauri-apps/api/event'
 import { storeToRefs } from 'pinia'
+import { invoke } from '@tauri-apps/api/core'
 import AlphaDiff from './Diff/AlphaDiff.vue'
 import { useFileSetsStore } from '../store/fileSets'
 
 const fileSetsStore = useFileSetsStore()
 const { fileSets, currentIndex } = storeToRefs(fileSetsStore)
-const { addDiffFileset, switchTo } = fileSetsStore
+const { addDiffFileset, removeFileset, switchTo } = fileSetsStore
 
 let unlisten = null
 
@@ -38,8 +40,13 @@ onMounted(async () => {
   await emit('frontend-ready')
 })
 
-onUnmounted(() => {
+onUnmounted(async () => {
   if (unlisten) unlisten()
+
+  const allPaths = fileSets.value.flatMap(fs => [fs.file1.data, fs.file2.data])
+  if (allPaths.length > 0) {
+    await invoke('remove_temp_files', { paths: allPaths })
+  }
 })
 </script>
 
@@ -55,17 +62,6 @@ onUnmounted(() => {
 
 body { font-family: 'Source Sans Pro', sans-serif; }
 
-#wrapper {
-  height: 99vh;
-  width: 99vw;
-}
-
-#logo {
-  height: auto;
-  margin-bottom: 20px;
-  width: 420px;
-}
-
 main {
   display: flex;
   justify-content: space-between;
@@ -73,61 +69,20 @@ main {
 
 main > div { flex-basis: 50%; }
 
-.left-side {
-  display: flex;
-  flex-direction: column;
-}
-
-.welcome {
-  color: #555;
-  font-size: 23px;
-  margin-bottom: 10px;
-}
-
-.title {
-  color: #2c3e50;
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 6px;
-}
-
-.title.alt {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.doc p {
-  color: black;
-  margin-bottom: 10px;
-}
-
-.doc button {
-  font-size: .8em;
-  cursor: pointer;
-  outline: none;
-  padding: 0.75em 2em;
-  border-radius: 2em;
-  display: inline-block;
-  color: #fff;
-  background-color: #4fc08d;
-  transition: all 0.15s ease;
-  box-sizing: border-box;
-  border: 1px solid #4fc08d;
-}
-
-.doc button.alt {
-  color: #42b983;
-  background-color: transparent;
+#wrapper {
+  height: 99vh;
+  width: 99vw;
 }
 
 #tabs {
   display: flex;
   gap: 4px;
   padding: 4px;
+  padding-bottom: 0;
   background: #1a1a2e;
 }
 
-#tabs button {
+#tabs .tab {
   padding: 4px 12px;
   border: none;
   border-radius: 4px 4px 0 0;
@@ -136,7 +91,22 @@ main > div { flex-basis: 50%; }
   color: #fff;
 }
 
-#tabs button.active {
+#tabs .tab.active {
   background: #4a90d9;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.75em;
+  padding: 0 2px;
+  opacity: 0.7;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  opacity: 1;
 }
 </style>
